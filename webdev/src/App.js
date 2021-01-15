@@ -1,7 +1,13 @@
-import React from "react"
+import GlobalStyle from "./style/Global"
 
+import HomePage from "./A/HomePage"
 const App = () => {
-  return <div>app page</div>
+  return (
+    <div>
+      <GlobalStyle />
+      <HomePage />
+    </div>
+  )
 }
 
 export default App
