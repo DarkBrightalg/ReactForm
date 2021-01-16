@@ -1,19 +1,13 @@
 import styled from "styled-components"
 import ShopSectionItem from "../C/ShopSectionItem"
-import { SectionItems } from "../Data/Menu"
 import sections from "../Data/ShopSectionData"
-const ShopSection = () => {
+
+const ShopSection = ({ history, match }) => {
   return (
     <ShopSectionContainer>
       {sections ? (
-        sections.map((el) => (
-          <ShopSectionItem
-            key={el.id}
-            texte={el.title}
-            color={el.color}
-            imageUrl={el.imageUrl}
-            big={el.big}
-          />
+        sections.map(({ id, ...otherSectionPops }) => (
+          <ShopSectionItem key={id} {...otherSectionPops} />
         ))
       ) : (
         <img

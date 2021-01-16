@@ -1,17 +1,18 @@
-import React, { Component } from "react"
+import { Switch, Route } from "react-router-dom"
 import styled from "styled-components"
 import Header from "../B/Header"
 import ShopSection from "./ShopSection"
 import * as color from "../style/Colors"
-class HomePage extends Component {
-  render() {
-    return (
-      <HomePageContainer>
-        <Header />
-        <ShopSection />
-      </HomePageContainer>
-    )
-  }
+
+const HomePage = () => {
+  return (
+    <HomePageContainer>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={ShopSection} />
+      </Switch>
+    </HomePageContainer>
+  )
 }
 
 export default HomePage

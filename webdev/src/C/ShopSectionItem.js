@@ -1,15 +1,26 @@
 import styled from "styled-components"
-
-const ShopSectionItem = ({ texte, color, imageUrl, big }) => {
+import { withRouter } from "react-router-dom"
+const ShopSectionItem = ({
+  title,
+  color,
+  imageUrl,
+  big,
+  linkUrl,
+  history,
+  match,
+}) => {
   return (
-    <ShopSectionItemContainer big={big}>
-      <ShopSectionItemRight color={color}>{texte}</ShopSectionItemRight>
+    <ShopSectionItemContainer
+      big={big}
+      onClick={() => history.push(`${match.url}${linkUrl}`)}
+    >
+      <ShopSectionItemRight color={color}>{title}</ShopSectionItemRight>
       <ShopSectionItemLeft imageUrl={imageUrl} />
     </ShopSectionItemContainer>
   )
 }
 
-export default ShopSectionItem
+export default withRouter(ShopSectionItem)
 
 //styling
 

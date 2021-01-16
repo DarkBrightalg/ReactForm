@@ -1,13 +1,14 @@
 import styled from "styled-components"
+import { withRouter } from "react-router-dom"
 import { ReactComponent as Logo } from "../style/Assets/Logo.svg"
 import { ReactComponent as ShopIcon } from "../style/Assets/shopIcon-01.svg"
 import * as color from "../style/Colors"
 import MenuItem from "../C/HeaderMenuItem"
-const Header = () => {
+const Header = ({ history }) => {
   return (
     <HeaderContainer>
       <LogoContainer>
-        <Logo />
+        <Logo onClick={() => history.push("/")} />
       </LogoContainer>
       <MenuContainer>
         <MenuItem>Shop</MenuItem>
@@ -23,7 +24,7 @@ const Header = () => {
   )
 }
 
-export default Header
+export default withRouter(Header)
 
 //styling
 
