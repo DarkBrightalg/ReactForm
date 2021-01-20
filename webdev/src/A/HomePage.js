@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom"
 import styled from "styled-components"
 import Header from "../B/Header"
 import ShopSection from "./ShopSection"
+import Shop from "./Shop"
 import * as color from "../style/Colors"
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={ShopSection} />
+        <Route exact path="/shop" component={Shop} />
       </Switch>
     </HomePageContainer>
   )

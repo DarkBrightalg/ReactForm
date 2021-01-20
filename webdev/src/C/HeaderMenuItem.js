@@ -1,14 +1,15 @@
 import styled from "styled-components"
 import * as color from "../style/Colors"
-const HeaderMenuItem = ({ children }) => {
+import { withRouter } from "react-router-dom"
+const HeaderMenuItem = ({ children, history, link }) => {
   return (
     <MenuItemContainer>
-      <MenuItem>{children}</MenuItem>
+      <MenuItem onClick={() => history.push(link)}>{children}</MenuItem>
     </MenuItemContainer>
   )
 }
 
-export default HeaderMenuItem
+export default withRouter(HeaderMenuItem)
 //styling
 export const MenuItem = styled.span`
   color: ${color.Primary(1)};

@@ -11,7 +11,7 @@ const Header = ({ history }) => {
         <Logo onClick={() => history.push("/")} />
       </LogoContainer>
       <MenuContainer>
-        <MenuItem>Shop</MenuItem>
+        <MenuItem link="/shop">Shop</MenuItem>
         <MenuItem>Sign up</MenuItem>
         <MenuItem>Sign in</MenuItem>
         <MenuItem>Contact</MenuItem>
