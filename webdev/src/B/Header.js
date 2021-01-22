@@ -4,18 +4,24 @@ import { ReactComponent as Logo } from "../style/Assets/Logo.svg"
 import { ReactComponent as ShopIcon } from "../style/Assets/shopIcon-01.svg"
 import * as color from "../style/Colors"
 import MenuItem from "../C/HeaderMenuItem"
-const Header = ({ history }) => {
+import { auth } from "../Database/Firebase"
+const Header = ({ history, user }) => {
   return (
     <HeaderContainer>
       <LogoContainer>
         <Logo onClick={() => history.push("/")} />
       </LogoContainer>
       <MenuContainer>
-        <MenuItem link="/shop">Shop</MenuItem>
-        <MenuItem>Sign up</MenuItem>
-        <MenuItem>Sign in</MenuItem>
+        <MenuItem onClick={() => history.push("/shop")}>Shop</MenuItem>
         <MenuItem>Contact</MenuItem>
-        <MenuItem>Sign out</MenuItem>
+        {user ? (
+          <MenuItem onClick={() => auth.signOut()}>Sign out</MenuItem>
+        ) : (
+          <MenuItem onClick={() => history.push("/sign")}>
+            Sign in & Sign up
+          </MenuItem>
+        )}
+
         <ShopIconContainer>
           <ShopIcon />
         </ShopIconContainer>

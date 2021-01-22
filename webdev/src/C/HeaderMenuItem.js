@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import * as color from "../style/Colors"
 import { withRouter } from "react-router-dom"
-const HeaderMenuItem = ({ children, history, link }) => {
+const HeaderMenuItem = ({ children, onClick }) => {
   return (
     <MenuItemContainer>
-      <MenuItem onClick={() => history.push(link)}>{children}</MenuItem>
+      <MenuItem onClick={onClick}>{children}</MenuItem>
     </MenuItemContainer>
   )
 }

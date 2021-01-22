@@ -2,7 +2,6 @@ import ShopList from "../B/ShopList"
 import SHOP_DATA from "../Data/ShopItemsData"
 
 const Shop = () => {
-  console.log("SHOP", SHOP_DATA)
   return (
     <div>
       {SHOP_DATA.map((section) => (
