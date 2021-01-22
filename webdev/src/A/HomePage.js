@@ -6,29 +6,23 @@ import Shop from "./Shop"
 import Sign from "./Sign"
 import * as color from "../style/Colors"
 import { auth, createUserProfileDocument } from "../Database/Firebase"
-
+import { setCurrentUser } from "../Redux/User"
+import { connect } from "react-redux"
 import React, { Component } from "react"
 
 class HomePage extends Component {
-  constructor() {
-    super()
-    this.state = {
-      currentUser: null,
-    }
-  }
   unsubscribefromauth = null
 
   componentDidMount() {
+    const { setCurrentUser } = this.props
     this.unsubscribefromauth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
         userRef.onSnapshot((snapshot) => {
-          this.setState({
-            currentUser: { id: snapshot.id, ...snapshot.data() },
-          })
+          setCurrentUser({ id: snapshot.id, ...snapshot.data() })
         })
       } else {
-        this.setState({ currentUser: null })
+        setCurrentUser(userAuth)
       }
     })
   }
@@ -36,27 +30,33 @@ class HomePage extends Component {
     this.unsubscribefromauth()
   }
   render() {
+    const { currentUser } = this.props
     return (
       <HomePageContainer>
-        <Header user={this.state.currentUser} />
+        <Header />
         <Switch>
           <Route exact path="/" component={ShopSection} />
           <Route exact path="/shop" component={Shop} />
           <Route
             exact
             path="/sign"
-            render={() =>
-              this.state.currentUser ? <Redirect to="/" /> : <Sign />
-            }
+            render={() => (currentUser ? <Redirect to="/" /> : <Sign />)}
           />
         </Switch>
       </HomePageContainer>
     )
   }
 }
+const mapdispatch = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+})
+const mapstatetoprops = (state) => ({
+  currentUser: state.User.currentUser,
+})
+export default connect(mapstatetoprops, mapdispatch)(HomePage)
 
-export default HomePage
-
+//---------------------------------------------------------------------------------------------
+//styling
 export const HomePageContainer = styled.div`
   width: 100vw;
   height: 100vh;

@@ -5,7 +5,9 @@ import { ReactComponent as ShopIcon } from "../style/Assets/shopIcon-01.svg"
 import * as color from "../style/Colors"
 import MenuItem from "../C/HeaderMenuItem"
 import { auth } from "../Database/Firebase"
-const Header = ({ history, user }) => {
+import { connect } from "react-redux"
+
+const Header = ({ history, currentUser }) => {
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -14,7 +16,7 @@ const Header = ({ history, user }) => {
       <MenuContainer>
         <MenuItem onClick={() => history.push("/shop")}>Shop</MenuItem>
         <MenuItem>Contact</MenuItem>
-        {user ? (
+        {currentUser ? (
           <MenuItem onClick={() => auth.signOut()}>Sign out</MenuItem>
         ) : (
           <MenuItem onClick={() => history.push("/sign")}>
@@ -30,8 +32,12 @@ const Header = ({ history, user }) => {
   )
 }
 
-export default withRouter(Header)
+const mapstatetoprops = (state) => ({
+  currentUser: state.User.currentUser,
+})
+export default withRouter(connect(mapstatetoprops)(Header))
 
+//---------------------------------------------------------------------------------------------------
 //styling
 
 export const ShopIconContainer = styled.div`
