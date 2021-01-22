@@ -7,7 +7,7 @@ import * as color from "../style/Colors"
 import MenuItem from "../C/HeaderMenuItem"
 import { auth } from "../Database/Firebase"
 import { connect } from "react-redux"
-import CartDownSmall from "../C/CartDownSmall"
+import CartDownSmall from "../B/CartDownSmall"
 
 const Header = ({ history, currentUser }) => {
   const [CartDownStatus, setCartDownStatus] = useState(false)

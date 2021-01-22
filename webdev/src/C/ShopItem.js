@@ -1,11 +1,15 @@
 import styled from "styled-components"
 import * as color from "../style/Colors"
-
-const ShopItem = ({ imageUrl, name, price }) => {
+import { AddItemToCart } from "../Redux/Cart"
+import { connect } from "react-redux"
+const ShopItem = ({ item, AddItemToCart }) => {
+  const { imageUrl, name, price } = item
   return (
     <ShopItemContainer image={imageUrl}>
       <div className="AddToCartButtonContainer">
-        <AddToCartButtonBackground></AddToCartButtonBackground>
+        <AddToCartButtonBackground onClick={() => AddItemToCart(item)}>
+          add to cart
+        </AddToCartButtonBackground>
       </div>
       <div className="ImageBackgroundContainer" />
       <BlocTexte>
@@ -15,15 +19,22 @@ const ShopItem = ({ imageUrl, name, price }) => {
     </ShopItemContainer>
   )
 }
+const mapdispatch = (dispatch) => ({
+  AddItemToCart: (user) => dispatch(AddItemToCart(user)),
+})
 
-export default ShopItem
+export default connect(null, mapdispatch)(ShopItem)
 //styling
 
 export const AddToCartButtonBackground = styled.div`
   width: 100%;
   height: 100%;
-  background-color: white;
-  opacity: 0.7;
+  background-color: black;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 `
 export const Texte = styled.span`
   color: ${color.Primary};
@@ -55,9 +66,8 @@ export const ShopItemContainer = styled.div`
     position: absolute;
     z-index: 3;
     width: 70%;
-    height: 15%;
-    border: 1px solid white;
-    top: 60%;
+    height: 10%;
+    top: 70%;
     left: 15%;
     display: flex;
     justify-content: center;
@@ -66,7 +76,8 @@ export const ShopItemContainer = styled.div`
   }
   &:hover {
     .AddToCartButtonContainer {
-      border: 3px solid white;
+      opacity: 0.7;
+      border: none;
     }
     .ImageBackgroundContainer {
       transform: scale(1.2);

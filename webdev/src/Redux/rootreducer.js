@@ -1,8 +1,9 @@
 import { combineReducers } from "redux"
-//don't forget to import reducers
+
 import { persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import { UserRed } from "./User"
+import { CartRed } from "./Cart"
 const persistConfig = {
   key: "root",
   storage,
@@ -12,5 +13,6 @@ const persistConfig = {
 const rootreducer = combineReducers({
   /* reducers */
   User: UserRed,
+  Cart: CartRed,
 })
 export default persistReducer(persistConfig, rootreducer)

@@ -1,18 +1,33 @@
 import styled from "styled-components"
-import CButton from "./CButton"
-const CartDownSmall = ({ display }) => {
+import CButton from "../C/CButton"
+import { connect } from "react-redux"
+import CartDownItem from "../C/CartDownItem"
+
+const CartDownSmall = ({ display, CartItems }) => {
   return (
     <CartDownSmallContainer display={display}>
-      CartDown
+      <CartDropDownListItems>
+        {CartItems.map((item) => (
+          <CartDownItem key={item.id} item={item} />
+        ))}
+      </CartDropDownListItems>
       <CButton className="buttonCheckout">Go to checkout</CButton>
     </CartDownSmallContainer>
   )
 }
-
-export default CartDownSmall
+const mapstatetoprops = (state) => ({
+  CartItems: state.Cart.CartItems,
+})
+export default connect(mapstatetoprops)(CartDownSmall)
 //----------------------------------------------------------------------------------------------------
 //styling
-
+export const CartDropDownListItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 80%;
+  overflow: auto;
+`
 export const CartDownSmallContainer = styled.div`
   display: ${(props) => (props.display === "false" ? "none" : "flex")};
   width: 30rem;

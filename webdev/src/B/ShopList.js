@@ -13,7 +13,7 @@ const ShopList = ({ routName, title, items, history, match }) => {
         {items
           ? items
               .filter((item, idx) => idx < 4)
-              .map((item) => <ShopItem key={item.id} {...item} />)
+              .map((item) => <ShopItem key={item.id} item={item} />)
           : null}
       </ItemsList>
     </ShopListContainer>
