@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { useState } from "react"
 import { withRouter } from "react-router-dom"
 import { ReactComponent as Logo } from "../style/Assets/Logo.svg"
 import { ReactComponent as ShopIcon } from "../style/Assets/shopIcon-01.svg"
@@ -6,8 +7,11 @@ import * as color from "../style/Colors"
 import MenuItem from "../C/HeaderMenuItem"
 import { auth } from "../Database/Firebase"
 import { connect } from "react-redux"
+import CartDownSmall from "../C/CartDownSmall"
 
 const Header = ({ history, currentUser }) => {
+  const [CartDownStatus, setCartDownStatus] = useState(false)
+
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -24,10 +28,12 @@ const Header = ({ history, currentUser }) => {
           </MenuItem>
         )}
 
-        <ShopIconContainer>
+        <ShopIconContainer onClick={() => setCartDownStatus(!CartDownStatus)}>
+          <ShopNumber>1</ShopNumber>
           <ShopIcon />
         </ShopIconContainer>
       </MenuContainer>
+      <CartDownSmall display={CartDownStatus.toString()} />
     </HeaderContainer>
   )
 }
@@ -39,9 +45,18 @@ export default withRouter(connect(mapstatetoprops)(Header))
 
 //---------------------------------------------------------------------------------------------------
 //styling
-
+export const ShopNumber = styled.span`
+  font-size: 1.1rem;
+  position: absolute;
+  top: 1.3rem;
+  left: 1.3rem;
+  text-align: center;
+  font-weight: 600;
+  color: ${color.Primary()};
+`
 export const ShopIconContainer = styled.div`
-  width: 3rem;
+  position: relative;
+  width: 4rem;
   fill: ${color.Secondary()};
   transition: all 0.1s ease-in;
   cursor: pointer;
@@ -70,4 +85,5 @@ export const HeaderContainer = styled.div`
   margin-bottom: 5rem;
   background-color: white;
   border-bottom: 1px solid #ededed;
+  position: relative;
 `
