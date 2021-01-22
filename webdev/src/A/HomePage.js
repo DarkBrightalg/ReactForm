@@ -23,12 +23,9 @@ class HomePage extends Component {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth)
         userRef.onSnapshot((snapshot) => {
-          this.setState(
-            {
-              currentUser: { id: snapshot.id, ...snapshot.data() },
-            },
-            () => console.log("Homepage", this.state)
-          )
+          this.setState({
+            currentUser: { id: snapshot.id, ...snapshot.data() },
+          })
         })
       } else {
         this.setState({ currentUser: null })

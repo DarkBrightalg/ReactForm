@@ -3,14 +3,19 @@ import * as color from "../style/Colors"
 import CInput from "../C/CInput"
 import CButton from "../C/CButton"
 import React, { useState } from "react"
-import { signinwithgoogle } from "../Database/Firebase"
+import { signinwithgoogle, auth } from "../Database/Firebase"
 const SignIn = () => {
   const [inputs, setInputs] = useState({})
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     if (event) {
       event.preventDefault()
     }
-    console.log("Signin ", inputs)
+    const { email, password } = inputs
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+    } catch (err) {
+      console.log("Sign in erreur au niveau du sign in ", err)
+    }
   }
   const handleSubmitGoogle = (event) => {
     if (event) {
