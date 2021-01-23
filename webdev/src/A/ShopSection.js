@@ -2,7 +2,7 @@ import styled from "styled-components"
 import ShopSectionItem from "../C/ShopSectionItem"
 import sections from "../Data/ShopSectionData"
 
-const ShopSection = ({ history, match }) => {
+const ShopSection = () => {
   return (
     <ShopSectionContainer>
       {sections ? (

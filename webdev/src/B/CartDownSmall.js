@@ -4,24 +4,45 @@ import { connect } from "react-redux"
 import CartDownItem from "../C/CartDownItem"
 import { createStructuredSelector } from "reselect"
 import { selCartItems } from "../Redux/Cart"
+import { withRouter } from "react-router-dom"
 
-const CartDownSmall = ({ display, CartItems }) => {
+const CartDownSmall = ({ display, CartItems, history }) => {
   return (
     <CartDownSmallContainer display={display}>
-      <CartDropDownListItems>
-        {CartItems.map((item) => (
-          <CartDownItem key={item.id} item={item} />
-        ))}
-      </CartDropDownListItems>
-      <CButton className="buttonCheckout">Go to checkout</CButton>
+      {CartItems.length ? (
+        <CartDropDownListItems>
+          {CartItems.map((item) => (
+            <CartDownItem key={item.id} item={item} />
+          ))}
+        </CartDropDownListItems>
+      ) : (
+        <EmptyMessage>Your Cart is empty</EmptyMessage>
+      )}
+
+      <CButton
+        className="buttonCheckout"
+        onClick={() => history.push("/checkout")}
+      >
+        Go to checkout
+      </CButton>
     </CartDownSmallContainer>
   )
 }
 const mapstate = createStructuredSelector({ CartItems: selCartItems })
 
-export default connect(mapstate)(CartDownSmall)
+export default withRouter(connect(mapstate)(CartDownSmall))
 //----------------------------------------------------------------------------------------------------
 //styling
+export const EmptyMessage = styled.span`
+  color: #ccc;
+  height: 100%;
+  font-size: 2rem;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 export const CartDropDownListItems = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,9 +61,9 @@ export const CartDownSmallContainer = styled.div`
   position: absolute;
   padding: 3rem;
   animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-
   flex-direction: column;
   justify-content: space-between;
+
   .buttonCheckout {
     justify-self: flex-end;
   }

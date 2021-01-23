@@ -7,7 +7,7 @@ import { CartRed } from "./Cart"
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: [],
+  whitelist: ["Cart"],
 }
 
 const rootreducer = combineReducers({

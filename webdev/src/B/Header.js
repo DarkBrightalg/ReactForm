@@ -9,6 +9,8 @@ import { auth } from "../Database/Firebase"
 import { connect } from "react-redux"
 import CartDownSmall from "../B/CartDownSmall"
 import { selCartItemsCount } from "../Redux/Cart"
+import { selCurrentUser } from "../Redux/User"
+import { createStructuredSelector } from "reselect"
 
 const Header = ({ history, currentUser, ItemsCount }) => {
   const [CartDownStatus, setCartDownStatus] = useState(false)
@@ -38,12 +40,12 @@ const Header = ({ history, currentUser, ItemsCount }) => {
     </HeaderContainer>
   )
 }
-
-const mapstatetoprops = (state) => ({
-  currentUser: state.User.currentUser,
-  ItemsCount: selCartItemsCount(state),
+const mapstate = createStructuredSelector({
+  currentUser: selCurrentUser,
+  ItemsCount: selCartItemsCount,
 })
-export default withRouter(connect(mapstatetoprops)(Header))
+
+export default withRouter(connect(mapstate)(Header))
 
 //---------------------------------------------------------------------------------------------------
 //styling

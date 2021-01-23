@@ -1,3 +1,11 @@
+import { createSelector } from "reselect"
+
+//selectors
+const selUser = (state) => state.User
+export const selCurrentUser = createSelector(
+  [selUser],
+  (User) => User.currentUser
+)
 //user action
 export const setCurrentUser = (user) => ({
   type: "SETCURRENTUSER",

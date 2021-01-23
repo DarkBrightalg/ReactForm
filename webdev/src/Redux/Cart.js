@@ -8,9 +8,19 @@ export const selCartItemsCount = createSelector([selCartItems], (CartItems) =>
     0
   )
 )
+export const selCartTotal = createSelector([selCartItems], (CartItems) =>
+  CartItems.reduce(
+    (accumulator, cartitem) => accumulator + cartitem.quantity * cartitem.price,
+    0
+  )
+)
 //user action
 export const AddItemToCart = (item) => ({
   type: "ADDITEMTOCART",
+  payload: item,
+})
+export const RemoveItemFromCart = (item) => ({
+  type: "REMOVEITEMFROMCART",
   payload: item,
 })
 
@@ -21,6 +31,11 @@ export const CartRed = (Cart = { CartItems: [] }, action) => {
       return {
         ...Cart,
         CartItems: addItemsUtils(Cart.CartItems, action.payload),
+      }
+    case "REMOVEITEMFROMCART":
+      return {
+        ...Cart,
+        CartItems: RemoveItemUtils(Cart.CartItems, action.payload),
       }
     default:
       return Cart
@@ -41,4 +56,7 @@ const addItemsUtils = (CartItems, CartItemToAdd) => {
     )
   }
   return [...CartItems, { ...CartItemToAdd, quantity: 1 }]
+}
+const RemoveItemUtils = (CartItems, CartItemToRemove) => {
+  return CartItems.filter((item) => item.id !== CartItemToRemove.id)
 }

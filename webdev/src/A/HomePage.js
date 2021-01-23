@@ -7,8 +7,11 @@ import Sign from "./Sign"
 import * as color from "../style/Colors"
 import { auth, createUserProfileDocument } from "../Database/Firebase"
 import { setCurrentUser } from "../Redux/User"
+import CheckoutPage from "./CheckoutPage"
 import { connect } from "react-redux"
 import React, { Component } from "react"
+import { selCurrentUser } from "../Redux/User"
+import { createStructuredSelector } from "reselect"
 
 class HomePage extends Component {
   unsubscribefromauth = null
@@ -37,6 +40,7 @@ class HomePage extends Component {
         <Switch>
           <Route exact path="/" component={ShopSection} />
           <Route exact path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/sign"
@@ -50,16 +54,15 @@ class HomePage extends Component {
 const mapdispatch = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 })
-const mapstatetoprops = (state) => ({
-  currentUser: state.User.currentUser,
-})
-export default connect(mapstatetoprops, mapdispatch)(HomePage)
+const mapstate = createStructuredSelector({ currentUser: selCurrentUser })
+
+export default connect(mapstate, mapdispatch)(HomePage)
 
 //---------------------------------------------------------------------------------------------
 //styling
 export const HomePageContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: ${color.Background()};
   display: flex;
   align-items: center;

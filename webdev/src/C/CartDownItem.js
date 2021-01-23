@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import * as color from "../style/Colors"
+import { connect } from "react-redux"
+
 const CartDownItem = ({ item }) => {
   const { imageUrl, name, quantity, price } = item
   return (
@@ -18,7 +20,7 @@ const CartDownItem = ({ item }) => {
   )
 }
 
-export default CartDownItem
+export default connect()(CartDownItem)
 
 //________________________________________________________________________________________________________________________
 //styling
