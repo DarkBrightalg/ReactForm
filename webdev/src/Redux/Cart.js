@@ -1,3 +1,13 @@
+import { createSelector } from "reselect"
+//selectors
+const selCart = (state) => state.Cart
+export const selCartItems = createSelector([selCart], (Cart) => Cart.CartItems)
+export const selCartItemsCount = createSelector([selCartItems], (CartItems) =>
+  CartItems.reduce(
+    (accumulator, cartitem) => accumulator + cartitem.quantity,
+    0
+  )
+)
 //user action
 export const AddItemToCart = (item) => ({
   type: "ADDITEMTOCART",

@@ -2,6 +2,8 @@ import styled from "styled-components"
 import CButton from "../C/CButton"
 import { connect } from "react-redux"
 import CartDownItem from "../C/CartDownItem"
+import { createStructuredSelector } from "reselect"
+import { selCartItems } from "../Redux/Cart"
 
 const CartDownSmall = ({ display, CartItems }) => {
   return (
@@ -15,10 +17,9 @@ const CartDownSmall = ({ display, CartItems }) => {
     </CartDownSmallContainer>
   )
 }
-const mapstatetoprops = (state) => ({
-  CartItems: state.Cart.CartItems,
-})
-export default connect(mapstatetoprops)(CartDownSmall)
+const mapstate = createStructuredSelector({ CartItems: selCartItems })
+
+export default connect(mapstate)(CartDownSmall)
 //----------------------------------------------------------------------------------------------------
 //styling
 export const CartDropDownListItems = styled.div`

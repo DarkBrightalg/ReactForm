@@ -8,8 +8,9 @@ import MenuItem from "../C/HeaderMenuItem"
 import { auth } from "../Database/Firebase"
 import { connect } from "react-redux"
 import CartDownSmall from "../B/CartDownSmall"
+import { selCartItemsCount } from "../Redux/Cart"
 
-const Header = ({ history, currentUser }) => {
+const Header = ({ history, currentUser, ItemsCount }) => {
   const [CartDownStatus, setCartDownStatus] = useState(false)
 
   return (
@@ -29,7 +30,7 @@ const Header = ({ history, currentUser }) => {
         )}
 
         <ShopIconContainer onClick={() => setCartDownStatus(!CartDownStatus)}>
-          <ShopNumber>1</ShopNumber>
+          <ShopNumber>{ItemsCount}</ShopNumber>
           <ShopIcon />
         </ShopIconContainer>
       </MenuContainer>
@@ -40,6 +41,7 @@ const Header = ({ history, currentUser }) => {
 
 const mapstatetoprops = (state) => ({
   currentUser: state.User.currentUser,
+  ItemsCount: selCartItemsCount(state),
 })
 export default withRouter(connect(mapstatetoprops)(Header))
 
