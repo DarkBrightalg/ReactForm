@@ -3,10 +3,10 @@ import * as color from "../style/Colors"
 import ShopItem from "../C/ShopItem"
 import { withRouter } from "react-router-dom"
 
-const ShopList = ({ routName, title, items, history, match }) => {
+const ShopList = ({ routeName, title, items, history, match }) => {
   return (
     <ShopListContainer>
-      <SectionTitle onClick={() => history.push(`${match.url}/${routName}`)}>
+      <SectionTitle onClick={() => history.push(`${match.url}/${routeName}`)}>
         {title}
       </SectionTitle>
       <ItemsList>

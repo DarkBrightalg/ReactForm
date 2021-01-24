@@ -19,6 +19,10 @@ export const AddItemToCart = (item) => ({
   type: "ADDITEMTOCART",
   payload: item,
 })
+export const MinusItemToCart = (item) => ({
+  type: "MINUSITEMTOCART",
+  payload: item,
+})
 export const RemoveItemFromCart = (item) => ({
   type: "REMOVEITEMFROMCART",
   payload: item,
@@ -31,6 +35,11 @@ export const CartRed = (Cart = { CartItems: [] }, action) => {
       return {
         ...Cart,
         CartItems: addItemsUtils(Cart.CartItems, action.payload),
+      }
+    case "MINUSITEMTOCART":
+      return {
+        ...Cart,
+        CartItems: MinusItemsUtils(Cart.CartItems, action.payload),
       }
     case "REMOVEITEMFROMCART":
       return {
@@ -52,6 +61,19 @@ const addItemsUtils = (CartItems, CartItemToAdd) => {
     return CartItems.map((CartItem) =>
       CartItem.id === CartItemToAdd.id
         ? { ...CartItem, quantity: CartItem.quantity + 1 }
+        : CartItem
+    )
+  }
+  return [...CartItems, { ...CartItemToAdd, quantity: 1 }]
+}
+const MinusItemsUtils = (CartItems, CartItemToAdd) => {
+  const existingCartItems = CartItems.find(
+    (CartItem) => CartItem.id === CartItemToAdd.id
+  )
+  if (existingCartItems) {
+    return CartItems.map((CartItem) =>
+      CartItem.id === CartItemToAdd.id
+        ? { ...CartItem, quantity: CartItem.quantity - 1 }
         : CartItem
     )
   }

@@ -36,7 +36,11 @@ const Header = ({ history, currentUser, ItemsCount }) => {
           <ShopIcon />
         </ShopIconContainer>
       </MenuContainer>
-      <CartDownSmall display={CartDownStatus.toString()} />
+      <CartDownSmall
+        display={CartDownStatus.toString()}
+        CartStatus={CartDownStatus}
+        setCartDownStatus={setCartDownStatus}
+      />
     </HeaderContainer>
   )
 }

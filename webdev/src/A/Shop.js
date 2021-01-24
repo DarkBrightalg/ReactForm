@@ -1,15 +1,18 @@
 import ShopList from "../B/ShopList"
-import SHOP_DATA from "../Data/ShopItemsData"
+import { connect } from "react-redux"
+import { selShopItems } from "../Redux/Shop"
+import { createStructuredSelector } from "reselect"
 
-const Shop = () => {
+const Shop = ({ ShopItems }) => {
   return (
     <div>
-      {SHOP_DATA.map((section) => (
+      {ShopItems.map((section) => (
         <ShopList key={section.id} {...section} />
       ))}
     </div>
   )
 }
+const mapstate = createStructuredSelector({ ShopItems: selShopItems })
 
-export default Shop
+export default connect(mapstate)(Shop)
 //styling

@@ -6,7 +6,13 @@ import { createStructuredSelector } from "reselect"
 import { selCartItems } from "../Redux/Cart"
 import { withRouter } from "react-router-dom"
 
-const CartDownSmall = ({ display, CartItems, history }) => {
+const CartDownSmall = ({
+  display,
+  CartItems,
+  history,
+  CartStatus,
+  setCartDownStatus,
+}) => {
   return (
     <CartDownSmallContainer display={display}>
       {CartItems.length ? (
@@ -21,7 +27,10 @@ const CartDownSmall = ({ display, CartItems, history }) => {
 
       <CButton
         className="buttonCheckout"
-        onClick={() => history.push("/checkout")}
+        onClick={() => {
+          history.push("/checkout")
+          setCartDownStatus(!CartStatus)
+        }}
       >
         Go to checkout
       </CButton>

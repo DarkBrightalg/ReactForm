@@ -1,8 +1,10 @@
 import styled from "styled-components"
 import ShopSectionItem from "../C/ShopSectionItem"
-import sections from "../Data/ShopSectionData"
+import { selShopSections } from "../Redux/Shop"
+import { connect } from "react-redux"
+import { createStructuredSelector } from "reselect"
 
-const ShopSection = () => {
+const ShopSection = ({ sections }) => {
   return (
     <ShopSectionContainer>
       {sections ? (
@@ -19,7 +21,9 @@ const ShopSection = () => {
   )
 }
 
-export default ShopSection
+const mapstate = createStructuredSelector({ sections: selShopSections })
+
+export default connect(mapstate)(ShopSection)
 //styling
 
 export const ShopSectionContainer = styled.div`

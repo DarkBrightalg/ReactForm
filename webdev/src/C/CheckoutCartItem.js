@@ -1,10 +1,15 @@
 import styled from "styled-components"
 import * as color from "../style/Colors"
 import { connect } from "react-redux"
-import { RemoveItemFromCart } from "../Redux/Cart"
+import {
+  RemoveItemFromCart,
+  AddItemToCart,
+  MinusItemToCart,
+} from "../Redux/Cart"
 
 const CheckoutCartItem = ({ item, dispatch }) => {
   const { imageUrl, name, quantity, price } = item
+
   return (
     <CartItemContainer>
       <div className={`Global`}>
@@ -13,9 +18,23 @@ const CheckoutCartItem = ({ item, dispatch }) => {
         </div>
         <div className="detailsContainer">{name}</div>
         <div className="detailsContainer">
-          <span className="subbutton">&#10094;</span>
+          <span
+            className="subbutton"
+            onClick={() =>
+              item.quantity < 2
+                ? dispatch(RemoveItemFromCart(item))
+                : dispatch(MinusItemToCart(item))
+            }
+          >
+            &#10094;
+          </span>
           &nbsp;&nbsp;{quantity}&nbsp;&nbsp;
-          <span className="subbutton">&#10095;</span>
+          <span
+            className="subbutton"
+            onClick={() => dispatch(AddItemToCart(item))}
+          >
+            &#10095;
+          </span>
         </div>
         <div className="detailsContainer">${price}</div>
         <div className="detailsContainer">
